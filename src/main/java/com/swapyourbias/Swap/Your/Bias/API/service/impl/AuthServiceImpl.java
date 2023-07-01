@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     public String signin(UserDto userDto) {
         Optional<User> user = userRepository.findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail());
         if(!user.isEmpty()){
-            if(user.get().getPassword() == userDto.getPassword()) return "Succesfull log in";
+            if(user.get().getPassword().equals(userDto.getPassword())) return "Successful log in";
             else return "Wrong password";
         }
         return "No such account";
