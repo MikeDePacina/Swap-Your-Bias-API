@@ -35,4 +35,14 @@ public class PhotoCard {
     private LocalDateTime datePosted;
     private LocalDateTime dateUpdated;
 
+    @PrePersist
+    protected void onCreate() {
+        datePosted = LocalDateTime.now();
+
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        dateUpdated = LocalDateTime.now();
+    }
 }
