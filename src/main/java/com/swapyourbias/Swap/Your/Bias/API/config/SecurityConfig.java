@@ -24,8 +24,10 @@ public class SecurityConfig {
         return http
                 .authorizeRequests(auth ->
                         auth
-                                .requestMatchers(HttpMethod.GET, "/api/photocards").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/photocards/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/photocards").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/photocards/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/api/photocards/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )

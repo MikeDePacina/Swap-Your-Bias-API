@@ -50,4 +50,10 @@ public class PhotoCardController {
                                                         @PathVariable(name = "pcID") long pcID){
         return new ResponseEntity<PhotoCardDto>(photoCardService.updatePhotocard(photoCardDto,pcID,userID), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePhotoCard(@PathVariable(name = "id") long id){
+        photoCardService.deletePhotocard(id);
+        return new ResponseEntity<String>("Deleted",HttpStatus.OK);
+    }
 }
