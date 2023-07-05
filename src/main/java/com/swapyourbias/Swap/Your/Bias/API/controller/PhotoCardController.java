@@ -38,7 +38,7 @@ public class PhotoCardController {
         return new ResponseEntity<PhotoCardDto>(photoCardService.getPhotocard(id), HttpStatus.OK);
     }
 
-    @Secured("ROLE_USER")
+
     @PostMapping
     public ResponseEntity<PhotoCardDto> postPhotoCard(@Valid @RequestBody PhotoCardDto photoCardDto){
            return new ResponseEntity<PhotoCardDto>(photoCardService.postPhoto(photoCardDto), HttpStatus.CREATED);
@@ -46,7 +46,7 @@ public class PhotoCardController {
     }
 
 
-    @Secured("ROLE_USER")
+
     @PutMapping("/{userID}/{pcID}")
     public ResponseEntity<PhotoCardDto> updatePhotoCard(@Valid @RequestBody PhotoCardDto photoCardDto,
                                                         @PathVariable(name = "userID") long userID,
