@@ -2,12 +2,12 @@ package com.swapyourbias.Swap.Your.Bias.API.controller;
 
 import com.swapyourbias.Swap.Your.Bias.API.dto.PhotoCardDto;
 import com.swapyourbias.Swap.Your.Bias.API.dto.PhotoCardList;
-import com.swapyourbias.Swap.Your.Bias.API.model.PhotoCard;
 import com.swapyourbias.Swap.Your.Bias.API.service.PhotoCardService;
 import com.swapyourbias.Swap.Your.Bias.API.utils.APIConstants;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,12 +38,15 @@ public class PhotoCardController {
         return new ResponseEntity<PhotoCardDto>(photoCardService.getPhotocard(id), HttpStatus.OK);
     }
 
+    @Secured("ROLE_USER")
     @PostMapping
     public ResponseEntity<PhotoCardDto> postPhotoCard(@Valid @RequestBody PhotoCardDto photoCardDto){
            return new ResponseEntity<PhotoCardDto>(photoCardService.postPhoto(photoCardDto), HttpStatus.CREATED);
 
     }
 
+
+    @Secured("ROLE_USER")
     @PutMapping("/{userID}/{pcID}")
     public ResponseEntity<PhotoCardDto> updatePhotoCard(@Valid @RequestBody PhotoCardDto photoCardDto,
                                                         @PathVariable(name = "userID") long userID,

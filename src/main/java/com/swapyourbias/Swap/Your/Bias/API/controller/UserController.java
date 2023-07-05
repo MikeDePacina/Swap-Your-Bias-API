@@ -1,8 +1,11 @@
 package com.swapyourbias.Swap.Your.Bias.API.controller;
 
+import com.swapyourbias.Swap.Your.Bias.API.dto.JWTAuthResponse;
+import com.swapyourbias.Swap.Your.Bias.API.dto.LoginDto;
 import com.swapyourbias.Swap.Your.Bias.API.dto.UserDto;
 import com.swapyourbias.Swap.Your.Bias.API.service.AuthService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +19,19 @@ public class UserController {
         this.authService = authService;
     }
 
-    @PostMapping("/signup")
-    public UserDto login(@Valid @RequestBody UserDto userDto){
-        return authService.signup(userDto);
+    @PostMapping(value = {"/signup","/register"})
+    public ResponseEntity<String> register(@Valid @RequestBody UserDto userDto){
+        String response = authService.signup(userDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
 
-    @PostMapping("/signin")
-    public String signUp(@Valid @RequestBody UserDto userDto){
-        return authService.signin(userDto);
+    @PostMapping(value = {"/signin","/login"})
+    public ResponseEntity<JWTAuthResponse> login(@Valid @RequestBody LoginDto loginDto){
+        String token = authService.signin(loginDto);
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return ResponseEntity.ok(jwtAuthResponse);
     }
 }

@@ -14,6 +14,7 @@ public class SwapYourBiasApiApplication {
 		return new ModelMapper();
 	}
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(SwapYourBiasApiApplication.class, args);
 	}

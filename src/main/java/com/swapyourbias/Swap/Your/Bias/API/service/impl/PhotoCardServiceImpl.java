@@ -101,16 +101,9 @@ public class PhotoCardServiceImpl implements PhotoCardService {
     }
 
     private PhotoCard convertToModel(PhotoCardDto photoCardDto){
-//        PhotoCard photoCard = new PhotoCard();
         PhotoCard photoCard = modelMapper.map(photoCardDto,PhotoCard.class);
         User owner = getUserByID(photoCardDto.getUserID());
         photoCard.setOwner(owner);
-//        photoCard.setImgPath(photoCardDto.getImgPath());
-//        photoCard.setArtist(photoCardDto.getArtist());
-//        photoCard.setGroup(photoCardDto.getGroup());
-//        photoCard.setOwner(owner);
-
-
         return photoCard;
     }
 
