@@ -13,13 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+
 public class PhotoCardServiceImpl implements PhotoCardService {
 
     private PhotoCardRepository photoCardRepository;
@@ -27,8 +25,8 @@ public class PhotoCardServiceImpl implements PhotoCardService {
     private UserRepository userRepository;
     private ModelMapper modelMapper;
     public PhotoCardServiceImpl(PhotoCardRepository photoCardRepository,
-                                ModelMapper modelMapper,
-                                UserRepository userRepository) {
+                                UserRepository userRepository,
+                                ModelMapper modelMapper) {
         this.photoCardRepository = photoCardRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
@@ -77,9 +75,9 @@ public class PhotoCardServiceImpl implements PhotoCardService {
         if(photoCard.getOwner().getId() != user.getId()){
             throw new ResourceNotFoundException("photocard","pcID",pcID);
         }
-        photoCard.setArtist(photoCardDto.getArtist());
-        photoCard.setGroup(photoCardDto.getGroup());
-        photoCard.setImgPath(photoCardDto.getImgPath());
+        if(photoCardDto.getArtist() != null) photoCard.setArtist(photoCardDto.getArtist());
+        if(photoCardDto.getGroup() != null) photoCard.setGroup(photoCardDto.getGroup());
+        if(photoCardDto.getImgPath() != null) photoCard.setImgPath(photoCardDto.getImgPath());
         photoCard.setDateUpdated(LocalDateTime.now());
 
         PhotoCard updatedPC = photoCardRepository.save(photoCard);
