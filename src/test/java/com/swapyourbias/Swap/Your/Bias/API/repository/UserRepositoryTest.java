@@ -1,20 +1,13 @@
 package com.swapyourbias.Swap.Your.Bias.API.repository;
 
 import com.swapyourbias.Swap.Your.Bias.API.model.User;
-import com.swapyourbias.Swap.Your.Bias.API.service.impl.AuthServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+
 
 @DataJpaTest
 public class UserRepositoryTest {
