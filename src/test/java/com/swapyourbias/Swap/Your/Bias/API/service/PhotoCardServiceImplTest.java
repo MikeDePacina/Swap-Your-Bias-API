@@ -1,12 +1,12 @@
 package com.swapyourbias.Swap.Your.Bias.API.service;
 
-import com.swapyourbias.Swap.Your.Bias.API.dto.PhotoCardDto;
-import com.swapyourbias.Swap.Your.Bias.API.dto.PhotoCardList;
-import com.swapyourbias.Swap.Your.Bias.API.model.PhotoCard;
-import com.swapyourbias.Swap.Your.Bias.API.model.User;
-import com.swapyourbias.Swap.Your.Bias.API.repository.PhotoCardRepository;
-import com.swapyourbias.Swap.Your.Bias.API.repository.UserRepository;
-import com.swapyourbias.Swap.Your.Bias.API.service.impl.PhotoCardServiceImpl;
+import com.swapyourbias.dto.PhotoCardDto;
+import com.swapyourbias.dto.PhotoCardList;
+import com.swapyourbias.model.PhotoCard;
+import com.swapyourbias.model.User;
+import com.swapyourbias.repository.PhotoCardRepository;
+import com.swapyourbias.repository.UserRepository;
+import com.swapyourbias.service.impl.PhotoCardServiceImpl;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
