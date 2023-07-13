@@ -100,7 +100,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>swap-your-bias-api-dockerize</finalName>
+
 	</build>
 
 

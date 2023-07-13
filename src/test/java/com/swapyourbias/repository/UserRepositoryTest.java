@@ -1,6 +1,7 @@
-package com.swapyourbias.Swap.Your.Bias.API.repository;
+package com.swapyourbias.repository;
 
-import com.swapyourbias.Swap.Your.Bias.API.model.User;
+import com.swapyourbias.model.User;
+import com.swapyourbias.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
