@@ -2,7 +2,9 @@ package com.swapyourbias.service;
 
 import com.swapyourbias.dto.LoginDto;
 import com.swapyourbias.dto.UserDto;
+import com.swapyourbias.exception.APIException;
 import com.swapyourbias.model.Role;
+import com.swapyourbias.model.User;
 import com.swapyourbias.repository.RoleRepository;
 import com.swapyourbias.repository.UserRepository;
 import com.swapyourbias.security.JwtTokenProvider;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import static org.assertj.core.api.ClassBasedNavigableIterableAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -109,7 +112,40 @@ class AuthServiceImplTest {
         }));
     }
 
+    @Test
+    public void testSignUp_UsernameAlreadyExists(){
+        //Mock userDto
+        UserDto userDto = new UserDto("existingUsername", "testemail@example.com", "testpassword");
 
+        //Mock userRepository to return true for username exists
+        when(userRepository.existsByUsername("existingUsername")).thenReturn(true);
+
+        //Assert throws exception
+        assertThrows(APIException.class, () -> authService.signup(userDto));
+
+        // Verify that userRepository.existsByUsername was called
+        verify(userRepository).existsByUsername("existingUsername");
+        // Verify that userRepository.save was not called
+        verify(userRepository, never()).save(any(User.class));
+
+    }
+
+    @Test
+    public void testSignUp_EmailAlreadyExists(){
+        //Mock userDto
+        UserDto userDto = new UserDto("testUsername", "existingEmail@example.com", "testpassword");
+
+        //Mock userRepository to return true for email exists
+        when(userRepository.existsByEmail("existingEmail@example.com")).thenReturn(true);
+
+        //Assert throws exception
+        assertThrows(APIException.class, () -> authService.signup(userDto));
+
+        // Verify that userRepository.existsByEmail was called
+        verify(userRepository).existsByEmail("existingEmail@example.com");
+        // Verify that userRepository.save was not called
+        verify(userRepository, never()).save(any(User.class));
+    }
 
 
 }
