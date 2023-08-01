@@ -1,4 +1,4 @@
-package com.swapyourbias.Swap.Your.Bias.API.service;
+package com.swapyourbias.service;
 
 import com.swapyourbias.dto.PhotoCardDto;
 import com.swapyourbias.dto.PhotoCardList;
