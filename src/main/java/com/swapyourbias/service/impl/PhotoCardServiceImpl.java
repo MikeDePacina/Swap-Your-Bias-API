@@ -94,26 +94,26 @@ public class PhotoCardServiceImpl implements PhotoCardService {
     }
 
 
-    private PhotoCardDto convertToDTO(PhotoCard photoCard){
+    public PhotoCardDto convertToDTO(PhotoCard photoCard){
         PhotoCardDto photoCardDto = modelMapper.map(photoCard,PhotoCardDto.class);
         photoCardDto.setUserID(photoCard.getOwner().getId());
         return photoCardDto;
     }
 
-    private PhotoCard convertToModel(PhotoCardDto photoCardDto){
+    public PhotoCard convertToModel(PhotoCardDto photoCardDto){
         PhotoCard photoCard = modelMapper.map(photoCardDto,PhotoCard.class);
         User owner = getUserByID(photoCardDto.getUserID());
         photoCard.setOwner(owner);
         return photoCard;
     }
 
-    private PhotoCard getPCByID(long id){
+    public PhotoCard getPCByID(long id){
         PhotoCard photoCard = photoCardRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("photocard","id",id));
         return photoCard;
     }
 
-    private User getUserByID(long id){
+    public User getUserByID(long id){
         User user = userRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("user","id",id));
         return user;

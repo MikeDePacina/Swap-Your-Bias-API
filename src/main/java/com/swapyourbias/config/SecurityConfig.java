@@ -58,6 +58,8 @@ public class SecurityConfig {
                     authorize.requestMatchers(HttpMethod.GET, "/api/photocards/**").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/api/photocards/**").authenticated();
                     authorize.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.PUT, "/api/photocards/**").authenticated();
+                    authorize.requestMatchers(HttpMethod.DELETE, "api/photocards/**").authenticated();
 
                 }).httpBasic(Customizer.withDefaults())
                 .exceptionHandling(exception -> exception

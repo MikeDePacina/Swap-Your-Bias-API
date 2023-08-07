@@ -1,5 +1,6 @@
 package com.swapyourbias.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PhotoCardList {
     private List<PhotoCardDto> photocards;
     private int pageNo;
