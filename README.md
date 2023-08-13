@@ -2,10 +2,12 @@
 API for photocard trading site
 
 Endpoints:
-Photocards Base URL: /api/photocards
+  
+  Photocards Base URL: /api/photocards
 
-GET(no authentication required): Returns list of photocards posted
-Response Status: 200 OK
+GET(no authentication required): Returns list of photocards posted 
+  
+  Response Status: 200 OK
 ```json
 {
     "photocards": [
@@ -37,7 +39,8 @@ Response Status: 200 OK
 ```
 
 GET/{photoCardID} (no authentication required): Returns photocard with specified id
-Response Status: 200 OK
+  
+  Response Status: 200 OK
 ```json
 {
     "id": 2,
@@ -50,7 +53,8 @@ Response Status: 200 OK
 }
 ```
 POST(token required and photocardDTO(artist, imgPath, userID are required) in request body): Returns photocard posted
-Response Status: 201 Created
+  
+  Response Status: 201 Created
 ```json
   {
     "id": 3,
@@ -63,7 +67,8 @@ Response Status: 201 Created
 }
 ```
 PUT/{userID}/{pcID}(token, and updated photocardDTO required): Returns updated photocard
-Response Status: 200 Ok
+  
+  Response Status: 200 Ok
 ```json
 {
     "id": 3,
@@ -76,10 +81,39 @@ Response Status: 200 Ok
 }
 ```
 DELETE/pcID(token required): Returns deleted upon successful deletion
-Response Status: 200 Ok
+  
+  Response Status: 200 Ok
 ```json
 Deleted
 ```
+
+ User Auth Base URL: /api/auth
+
+POST/signin or /login: Returns bearer token
+
+  Response Status: 200 OK
+
+```json
+  Input
+{
+    "usernameOrEmail":"Olivia",
+    "password":"1234fsd"
+}
+  Output
+{
+    "accessToken": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJmb3JldmVyQGdtYWlsLmNvbSIsImlhdCI6MTY5MTkwNzY5NiwiZXhwIjoxNjkyNTEyNDk2fQ.rWXW_kcaT-KBtVFiFXy_GPbYLxhFY53VcI7q7ZCtf4dOPv3TU7Xqr6YQ9Rt_IoBU",
+    "tokenType": "Bearer"
+}
+```
+
+POST /signup or /register: Returns string
+
+  Response Status: 201 CREATED
+```json
+User registered successfully!
+```
+        
+    
 
 
 
