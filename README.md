@@ -1,6 +1,12 @@
 # Swap-Your-Bias-API
 API for photocard trading site
 
+To get API running:   
+   - clone repo
+   - run docker compose up
+   - you can now test api on port 8080
+   - to check db connection on port 3308 and user and password credentials specified in docker-compose file
+
 Endpoints:
   
   Photocards Base URL: /api/photocards
