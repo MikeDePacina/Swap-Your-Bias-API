@@ -95,7 +95,7 @@ class AuthServiceImplTest {
         String result = authService.signup(userDto);
 
         // Assertions
-        assertEquals("User registered successfully!.", result);
+        assertEquals("User registered successfully!", result);
 
         // Verify that userRepository.existsByUsername and userRepository.existsByEmail were called
         verify(userRepository).existsByUsername("testuser");
