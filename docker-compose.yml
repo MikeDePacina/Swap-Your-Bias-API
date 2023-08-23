@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  apiserver:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: "mysql"
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: swapyourbias_db
+      MYSQL_USER: home
+      MYSQL_PASSWORD: grimes

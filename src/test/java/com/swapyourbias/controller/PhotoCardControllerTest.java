@@ -10,6 +10,7 @@ import com.swapyourbias.service.PhotoCardService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -41,6 +42,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) //so before all can be non static, so creation of account to get token can be done once in the beginning
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PhotoCardControllerTest {
 
@@ -57,15 +59,11 @@ public class PhotoCardControllerTest {
     private static RestTemplate restTemplate;
 
     private static String token = null;
-    private String baseUrl = "http://localhost";
+    private static String baseUrl = "http://localhost";
 
     @BeforeAll
-    public static void init(){
+    public void init(){
         restTemplate = new RestTemplate();
-    }
-
-    @BeforeEach
-    public void setUp(){
         String authUrl = "http://localhost:" + port + "/api/auth/";
         baseUrl = baseUrl.concat(":").concat(port +"").concat("/api/photocards");
 
@@ -82,6 +80,7 @@ public class PhotoCardControllerTest {
         ResponseEntity<JWTAuthResponse> loginRes = restTemplate.postForEntity(authUrl + "signin", loginReq, JWTAuthResponse.class);
         token = loginRes.getBody().getAccessToken();
     }
+
 
 
     @Test
@@ -104,19 +103,19 @@ public class PhotoCardControllerTest {
     }
 
     @Test
-    @Sql(statements = "INSERT INTO users(email,password,username) VALUES ('test@gmail.com', 'tunay41dawdadwdawd', 'eheads')" +
+    @Sql(statements = "INSERT INTO users(email,password,username) VALUES ('unique01@gmail.com', 'tunay41dawdadwdawd', 'eheads')" +
              ";" +
-            "INSERT INTO photocards(id,artist,kpop_group,img_path,user_id) VALUES (1, 'Gowon', 'Loona', 'one/and/only', 1)"
+            "INSERT INTO photocards(id,artist,kpop_group,img_path,user_id) VALUES (11, 'Gowon', 'Loona', 'one/and/only', 1)"
         ,executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void testGetAllPhotocards(){
         ResponseEntity<PhotoCardList> pcs = restTemplate.getForEntity(baseUrl, PhotoCardList.class);
-        assertEquals( 1, pcs.getBody().getTotalElements());
+        assertEquals( 4, pcs.getBody().getTotalElements());
         assertEquals( "Gowon", pcs.getBody().getPhotocards().get(0).getArtist());
         assertTrue(pcs.getBody().isLast());
     }
 
     @Test
-    @Sql(statements = "INSERT INTO users(email,password,username) VALUES ('test@gmail.com', 'tunay41dawdadwdawd', 'eheads')" +
+    @Sql(statements = "INSERT INTO users(email,password,username) VALUES ('test@gmail.com', 'tunay41dawdadwdawd', 'Genesis')" +
             ";" +
             "INSERT INTO photocards(id,artist,kpop_group,img_path,user_id) VALUES (1, 'Gowon', 'Loona', 'one/and/only', 1)"
             ,executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -153,10 +152,8 @@ public class PhotoCardControllerTest {
         assertEquals(1,res.getBody().getUserID());
 
         //check if updated
-//        restTemplate.put(baseUrl + "/" + res.getBody().getUserID() + "/" + res.getBody().getId(), updatedReq, res.getBody().getUserID(), res.getBody().getId());
         String updateUrl = baseUrl + "/" + res.getBody().getUserID() + "/" + res.getBody().getId();
         ResponseEntity<PhotoCardDto> updatedPc = restTemplate.exchange(updateUrl, HttpMethod.PUT, updatedReq, PhotoCardDto.class);
-//        ResponseEntity<PhotoCardDto> updatedPc = restTemplate.getForEntity(baseUrl + "/" + res.getBody().getId(), PhotoCardDto.class);
         assertEquals("Grimes", updatedPc.getBody().getArtist());
         assertEquals("I/want/to/be/software", updatedPc.getBody().getImgPath());
         assertEquals(1,updatedPc.getBody().getUserID());
@@ -187,7 +184,7 @@ public class PhotoCardControllerTest {
 
         ResponseEntity<String> deletedPC = restTemplate.exchange(baseUrl + "/" + res.getBody().getId(), HttpMethod.DELETE, deleteReq, String.class);
 
-       assertEquals(HttpStatus.OK,deletedPC.getStatusCode());
-       assertEquals("Deleted",deletedPC.getBody());
+        assertEquals(HttpStatus.OK,deletedPC.getStatusCode());
+        assertEquals("Deleted",deletedPC.getBody());
     }
 }

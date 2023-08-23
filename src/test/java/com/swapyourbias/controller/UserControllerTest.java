@@ -5,10 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swapyourbias.dto.JWTAuthResponse;
 import com.swapyourbias.dto.LoginDto;
-import com.swapyourbias.dto.PhotoCardDto;
+
 import com.swapyourbias.dto.UserDto;
-import com.swapyourbias.exception.APIException;
-import com.swapyourbias.exception.ErrorDetails;
+
 import com.swapyourbias.repository.UserRepository;
 import com.swapyourbias.service.AuthService;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
@@ -56,7 +55,7 @@ public class UserControllerTest {
 
     @Test
     public void testSuccessfulSignUp(){
-        UserDto userDto = new UserDto("newUser", "newUser@gmail.com", "newUserPassword");
+        UserDto userDto = new UserDto("newUsername01", "newUsername01@gmail.com", "newUserPassword");
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<UserDto> req = new HttpEntity<>(userDto, header);
@@ -157,8 +156,8 @@ public class UserControllerTest {
 
     @Test
     public void testSuccessfulSignIn(){
-        UserDto userDto = new UserDto("Grimes","grimes@gmail.com","Genesis");
-        LoginDto loginDto = new LoginDto("Grimes","Genesis");
+        UserDto userDto = new UserDto("testUsername01","testEmail01@gmail.com","Genesis");
+        LoginDto loginDto = new LoginDto("testUsername01","Genesis");
 
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
@@ -180,8 +179,8 @@ public class UserControllerTest {
 
     @Test
     public void testSuccessfulLogIn(){
-        UserDto userDto = new UserDto("Grimes","grimes@gmail.com","Genesis");
-        LoginDto loginDto = new LoginDto("Grimes","Genesis");
+        UserDto userDto = new UserDto("testUsername02","testEmail02@gmail.com","Genesis");
+        LoginDto loginDto = new LoginDto("testUsername02","Genesis");
 
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
